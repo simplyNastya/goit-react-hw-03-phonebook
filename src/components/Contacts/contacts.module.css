@@ -1,0 +1,17 @@
+.list {}
+
+.item {
+    /* display: flex; */
+    gap: 5px;
+    align-items: center;
+}
+
+.itemName {}
+
+.btn {
+    padding: 3px 5px;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+}
