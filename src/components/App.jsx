@@ -10,6 +10,20 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('my-contacts'));
+    if (contacts?.length) {
+      this.setState({
+        contacts,
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { contacts } = this.state;
+    localStorage.setItem('my-contacts', JSON.stringify(contacts));
+  }
+
   formSubmitHandler = ({ name, number }) => {
     if (this.isDublicate(name, number)) {
       const { contacts } = this.state;
