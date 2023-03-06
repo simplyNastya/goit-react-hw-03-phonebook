@@ -19,9 +19,13 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevState) {
     const { contacts } = this.state;
+    console.log(contacts);
     localStorage.setItem('my-contacts', JSON.stringify(contacts));
+    // if (contacts.length !== prevState.contacts.length) {
+    //   localStorage.setItem('my-contacts', JSON.stringify(contacts));
+    // }
   }
 
   formSubmitHandler = ({ name, number }) => {
@@ -31,14 +35,17 @@ export class App extends Component {
       alert(`${name} ${number} is already exist`);
       return;
     }
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+
+    this.setState(prevState => {
+      const { contacts } = prevState;
+      const newContact = {
+        id: nanoid(),
+        name,
+        number,
+      };
+
+      return { contacts: [...contacts, newContact] };
+    });
   };
 
   isDublicate = (name, number) => {
