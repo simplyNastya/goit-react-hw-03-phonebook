@@ -21,17 +21,13 @@ export class App extends Component {
 
   componentDidUpdate(prevState) {
     const { contacts } = this.state;
-    console.log(contacts);
-    localStorage.setItem('my-contacts', JSON.stringify(contacts));
-    // if (contacts.length !== prevState.contacts.length) {
-    //   localStorage.setItem('my-contacts', JSON.stringify(contacts));
-    // }
+    if (contacts !== prevState.contacts) {
+      localStorage.setItem('my-contacts', JSON.stringify(contacts));
+    }
   }
 
   formSubmitHandler = ({ name, number }) => {
     if (this.isDublicate(name, number)) {
-      const { contacts } = this.state;
-      console.log(contacts);
       alert(`${name} ${number} is already exist`);
       return;
     }
@@ -50,7 +46,6 @@ export class App extends Component {
 
   isDublicate = (name, number) => {
     const { contacts } = this.state;
-    console.log(contacts);
     const normalizedName = name.toLowerCase();
     const dublicate = contacts.find(item => {
       return (
